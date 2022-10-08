@@ -1,0 +1,38 @@
+/* General css elements */
+body {
+    background-color: white;
+    font-family: 'Roboto', monospace;
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.score {
+    flex-direction: column;
+}
+
+#score {
+    justify-content: center;
+    align-items: center;
+}
+
+#result {
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 16px;
+    color: green;
+    background-color: black;
+}

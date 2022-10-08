@@ -6,11 +6,8 @@ buttons.forEach( button => {
       })
 });
 
-const score = document.getElementById('score');
-const currentScore = document.createElement('p');
-const scoreMessage = document.createElement('p');
-score.appendChild(currentScore);
-score.appendChild(scoreMessage);
+const currentScore = document.getElementById('score');
+const scoreMessage = document.getElementById('result');
 
 function computerPlay() {
     let computersChoice = Math.floor(Math.random() * options.length);
