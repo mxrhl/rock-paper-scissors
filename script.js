@@ -1,70 +1,68 @@
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach( button => {
+          button.addEventListener('click', () => {
+          game(button.textContent);
+      })
+});
+
+const score = document.getElementById('score');
+const currentScore = document.createElement('p');
+const scoreMessage = document.createElement('p');
+score.appendChild(currentScore);
+score.appendChild(scoreMessage);
+
 function computerPlay() {
     let computersChoice = Math.floor(Math.random() * options.length);
     return options[computersChoice];
-}
-
-function playerPlay() {
-    return prompt("Choose between rock, paper and scissors!").toLowerCase();
-}
+};
 
 function playRound(playerChoice, computerChoice){
-    if (playerChoice.toLowerCase() == 'rock' && computerChoice.toLowerCase() == 'rock') {
-        console.log(`Rock ties rock! That\'s a tie - no point for anyone! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer} `);
+    if (playerChoice.toLowerCase() == computerChoice.toLowerCase()) {
+        scoreMessage.textContent = `${playerChoice} ties ${computerChoice}! That\'s a tie - no point for anyone!`
     } else if(playerChoice.toLowerCase() == 'rock' && computerChoice.toLowerCase() == 'scissors') {
         scorePlayer += 1;
-        console.log(`Rock beats scissors! You win - you earn a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer} `);
+        scoreMessage.textContent = `${playerChoice} beats ${computerChoice}! You win - you earn a point!`
     } else if(playerChoice.toLowerCase() == 'rock' && computerChoice.toLowerCase() == 'paper') {
-        scorePlayer += 1;
-        console.log(`Rock loses to paper! You lose - computer earns a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreComputer += 1;
+        scoreMessage.textContent = `${playerChoice} loses to ${computerChoice}! You lose - computer earns a point!`
     } else if(playerChoice.toLowerCase() == 'scissors' && computerChoice.toLowerCase() == 'rock') {
         scoreComputer += 1;
-        console.log(`Scissors lose to rock! You lost - computer earns a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
-    } else if(playerChoice.toLowerCase() == 'scissors' && computerChoice.toLowerCase() == 'scissors') {
-        console.log(`Scissors tie scissors! That\'s a tie - no point for anyone! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreMessage.textContent = `${playerChoice} loses to ${computerChoice}! You lose - computer earns a point!`
     } else if(playerChoice.toLowerCase() == 'scissors' && computerChoice.toLowerCase() == 'paper') {
         scorePlayer += 1;
-        console.log(`Scissors beat paper! You win - you earn a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreMessage.textContent = `${playerChoice} beats ${computerChoice}! You win - you earn a point!`
     } else if(playerChoice.toLowerCase() == 'paper' && computerChoice.toLowerCase() == 'rock') {
         scorePlayer += 1;
-        console.log(`Paper beats rock! You win - you earn a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreMessage.textContent = `${playerChoice} beats ${computerChoice}! You win - you earn a point!`
     } else if(playerChoice.toLowerCase() == 'paper' && computerChoice.toLowerCase() == 'scissors') {
         scoreComputer += 1;
-        console.log(`Paper loses to scissors! You lost - computer earns a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
-    } else if(playerChoice.toLowerCase() == 'paper' && computerChoice.toLowerCase() == 'paper') {
-        console.log(`That\'s a tie - no point for anyone! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreMessage.textContent = `${playerChoice} loses to ${computerChoice}! You lose - computer earns a point!`
     } else {
-        console.log(`The combination isn't valid - so noone earns a point! - Result: Player - ${scorePlayer}, Computer - ${scoreComputer}`);
+        scoreMessage.textContent = "The combination isn't valid - so noone earns a point!"
     }
+    currentScore.textContent = `Player - ${scorePlayer}, Computer - ${scoreComputer}`
 }
 
-function game() {
+function game(playerChoice) {
 
+    playRound(playerChoice, computerPlay());
 
-    for(let i = 0; i < 5; i++){
-        playRound(playerPlay(), computerPlay())
-    };
-
-    if (scoreComputer > scorePlayer) {
-        console.log(`The game ended as a win for the computer - Player: ${scorePlayer}, Computer: ${scoreComputer}`)
-    } else if (scoreComputer === scorePlayer) {
-        console.log(`The game ended as a tie - Player: ${scorePlayer}, Computer: ${scoreComputer}`)
-    } else {
-        console.log(`The game ended as a win for you - Player: ${scorePlayer}, Computer: ${scoreComputer}`)
-    };
-
-    let playAgain = confirm("You wanna play a game of rock, paper, scissors again?");
-    if (playAgain) {
+    if (scoreComputer == 5 || scorePlayer == 5) {
+        if (scoreComputer > scorePlayer) {
+            scoreMessage.textContent = `The game ended ${scoreComputer} : ${scorePlayer} with a win for the computer.`
+        } else {
+            scoreMessage.textContent = `The game ended ${scorePlayer} : ${scoreComputer} with a win for you.`
+        };
         scoreComputer = 0;
         scorePlayer = 0;
-        game();
-    } else {
-        console.log("Thanks for playing - see you soon!");
+        currentScore.textContent = `Player - ${scorePlayer}, Computer - ${scoreComputer}`;
     }
+
+
 }
 
-const options = ['rock', 'scissors', 'paper'];
+
+const options = ['Rock', 'Scissors', 'Paper'];
 let scoreComputer = 0;
 let scorePlayer = 0;
-
-game();
-
